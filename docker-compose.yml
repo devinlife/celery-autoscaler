@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-
+  
   app:
     container_name: app
     build: .
@@ -28,10 +28,11 @@ services:
   celery_worker:
     container_name: celery_worker
     build: .
-    command: celery -A celery_worker.celery_app worker --loglevel=info
+    command: celery -A celery_worker.celery_app worker --autoscale=4,1 --loglevel=info
     volumes:
       - ./src/:/app
     environment:
+      - FLOWER_UNAUTHENTICATED_API=true
       - CELERY_BROKER_URL=${CELERY_BROKER_URL}
       - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
       - REDIS_HOST=${REDIS_HOST}
@@ -49,6 +50,7 @@ services:
     volumes:
       - ./src/:/app
     environment:
+      - FLOWER_UNAUTHENTICATED_API=true
       - CELERY_BROKER_URL=${CELERY_BROKER_URL}
       - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
       - REDIS_HOST=${REDIS_HOST}
