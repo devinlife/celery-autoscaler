@@ -18,7 +18,7 @@ class PredictTask(Task):
             print("Loading model")
             self.model = SentenceTransformer("all-MiniLM-L6-v2")
 
-        self._cpu_stress(10)
+        self._cpu_stress(30)
 
         return self.run(*args, **kwargs)
 

@@ -1,7 +1,6 @@
 version: "3.8"
 
 services:
-  
   app:
     container_name: app
     build: .
@@ -28,7 +27,7 @@ services:
   celery_worker:
     container_name: celery_worker
     build: .
-    command: celery -A celery_worker.celery_app worker --autoscale=4,1 --loglevel=info
+    command: celery -A celery_worker.celery_app worker --autoscale=20,1 --loglevel=info
     volumes:
       - ./src/:/app
     environment:
